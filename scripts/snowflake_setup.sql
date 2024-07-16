@@ -69,6 +69,7 @@ create or replace warehouse LOADER_WH with
 
 -- create databases
 create or replace database RAW comment = 'Stores unprocessed, original data from various sources.';
+create or replace database ANALYTICS_DEV comment = 'Contains development schemas for transformed data.';
 create or replace database ANALYTICS comment = 'Contains staged, cleaned, transformed, and structured data optimized for querying and reporting.';
 
 -- grant warehouse usage to roles
@@ -81,14 +82,20 @@ grant usage on warehouse LOADER_WH to role LOADER;
 -- grant database
 grant usage on database RAW to role LOADER;
 grant usage on database RAW to role DEVELOPER;
+grant usage on database ANALYTICS_DEV to role DEVELOPER;
 grant usage on database ANALYTICS to role ANALYST;
 
 grant create schema on database RAW to role LOADER;
-grant create schema on database ANALYTICS to role DEVELOPER;
+grant create schema on database ANALYTICS_DEV to role DEVELOPER;
+grant create schema on database ANALYTICS to role AUTOMATION;
 
 -- grant usage
 grant usage on future schemas in database RAW to role DEVELOPER;
 grant select on future tables in database RAW to role DEVELOPER;
+
+grant usage on future schemas in database ANALYTICS_DEV to role DEVELOPER;
+grant select on future tables in database ANALYTICS_DEV to role DEVELOPER;
+grant select on future views in database ANALYTICS_DEV to role DEVELOPER;
 
 grant usage on future schemas in database ANALYTICS to role DEVELOPER;
 grant select on future tables in database ANALYTICS to role DEVELOPER;
