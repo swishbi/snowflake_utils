@@ -10,6 +10,7 @@ grant usage on warehouse COMPUTE_WH to role SYSADMIN;
 grant usage on warehouse COMPUTE_WH to role USERADMIN;
 
 alter account set QUOTED_IDENTIFIERS_IGNORE_CASE = TRUE;
+alter account set ALLOW_CLIENT_MFA_CACHING = TRUE;
 
 -- create roles
 use role useradmin;
